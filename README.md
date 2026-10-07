@@ -37,10 +37,18 @@ Porkbun URL forwarding must be removed. Apex A records must be:
 185.199.111.153
 ```
 
-`www` CNAME must point to `lucasfrit.github.io`. Preserve email and verification
+`www` CNAME must point to `lucasfrit.github.io`. The Porkbun GitHub template also
+sets the four official GitHub Pages IPv6 AAAA records:
+`2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`,
+`2606:50c0:8003::153`. Preserve email and verification
 records. Enable HTTPS enforcement once GitHub issues the certificate. The apex
 should serve HTTP 200; www should redirect to this apex, with no redirect to
 inertance.org.
+
+On 7 October 2026 the forwarding rule was removed and these DNS records were
+applied through Porkbun. The two email MX records, SPF TXT and existing ACME
+verification TXT records were preserved. Authoritative DNS and public
+DNS-over-HTTPS confirm the new records. Normal HTTP now serves the copy directly.
 
 Local preparation, with a clean checkout of the public upstream repository:
 
