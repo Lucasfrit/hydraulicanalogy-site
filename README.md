@@ -3,11 +3,15 @@
 This repository hosts https://hydraulicanalogy.com/ and its circuit simulator
 at https://hydraulicanalogy.com/app/. It serves the same released educational
 Inertance application directly, without forwarding visitors to inertance.org.
+The root address automatically opens `/app/` over HTTPS, preserving query
+parameters and preset hashes. The older demo and About page remain accessible
+at `/lab/` and `/about/`.
 
 ## Releases
 
 GitHub Actions reads the public `Lucasfrit/inertance-site` main branch, copies
 only visitor pages and assets, rewrites the primary-domain URLs for this domain,
+replaces the landing page with `entry.html` to open the simulator automatically,
 and deploys an artifact to GitHub Pages. No private simulator checkout or secret
 is needed. Source/build folders and project documents are excluded from the
 deployment. The app runtime and presets are unchanged.

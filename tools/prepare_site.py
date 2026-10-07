@@ -31,6 +31,7 @@ for path in output.rglob("*"):
         rewritten = content.replace("https://inertance.org", "https://hydraulicanalogy.com")
         if rewritten != content:
             path.write_text(rewritten)
+shutil.copy2(Path(__file__).resolve().parent.parent / "entry.html", output / "index.html")
 (output / ".nojekyll").touch()
 (output / "release.json").write_text(json.dumps({
     "upstream_repository": "Lucasfrit/inertance-site",
