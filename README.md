@@ -12,8 +12,9 @@ and deploys an artifact to GitHub Pages. No private simulator checkout or secret
 is needed. Source/build folders and project documents are excluded from the
 deployment. The app runtime and presets are unchanged.
 
-Each deployment checks GitHub's certificate state and enforces HTTPS once the
-certificate is approved, using the existing Pages deployment permission.
+Each deployment verifies that GitHub's HTTPS enforcement remains enabled.
+Pages settings are maintained by the repository owner; the deployment token
+does not have administrative permission to change them.
 
 The workflow runs on changes to this repository, on manual dispatch, and hourly
 at minute 17 to pick up upstream releases. GitHub schedules may be delayed and
@@ -51,7 +52,11 @@ inertance.org.
 On 7 October 2026 the forwarding rule was removed and these DNS records were
 applied through Porkbun. The two email MX records, SPF TXT and existing ACME
 verification TXT records were preserved. Authoritative DNS and public
-DNS-over-HTTPS confirm the new records. Normal HTTP now serves the copy directly.
+DNS-over-HTTPS confirm the new records. The domain serves the copy directly.
+GitHub's Let's Encrypt certificate covers the apex and www names and expires
+on 5 January 2027. HTTPS enforcement is enabled: HTTP and www redirect to
+https://hydraulicanalogy.com/ with the requested path preserved. Live desktop
+and phone smoke checks passed with normal DNS and TLS validation.
 
 Local preparation, with a clean checkout of the public upstream repository:
 

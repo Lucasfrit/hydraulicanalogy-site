@@ -46,14 +46,9 @@ jobs:
       - name: Deploy GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-      - name: Keep HTTPS enforced after certificate issuance
+      - name: Verify HTTPS remains enforced
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          certificate_state=$(gh api "repos/$GH_REPO/pages" --jq '.https_certificate.state // "pending"')
-          if [ "$certificate_state" = "approved" ]; then
-            gh api --method PUT "repos/$GH_REPO/pages" -F https_enforced=true
-          else
-            echo "Certificate provisioning is $certificate_state; HTTPS enforcement will be checked on the next run."
-          fi
+          test "$(gh api "repos/$GH_REPO/pages" --jq '.https_enforced')" = true
