@@ -12,6 +12,9 @@ and deploys an artifact to GitHub Pages. No private simulator checkout or secret
 is needed. Source/build folders and project documents are excluded from the
 deployment. The app runtime and presets are unchanged.
 
+Each deployment checks GitHub's certificate state and enforces HTTPS once the
+certificate is approved, using the existing Pages deployment permission.
+
 The workflow runs on changes to this repository, on manual dispatch, and hourly
 at minute 17 to pick up upstream releases. GitHub schedules may be delayed and
 can be disabled after 60 days of repository inactivity; check Actions if this
