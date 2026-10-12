@@ -16,7 +16,7 @@ if output == source or source in output.parents or output.exists():
     parser.error("output must be a new directory outside the source tree")
 revision = subprocess.check_output(["git", "-C", str(source), "rev-parse", "HEAD"], text=True).strip()
 output.mkdir(parents=True)
-for name in ("index.html", "app", "lab", "about", "assets", "robots.txt", "sitemap.xml", "LICENSE"):
+for name in ("index.html", "app", "lab", "about", "assets", "robots.txt", "sitemap.xml", "LICENSE", "source", "changelog", "teaching", "SOFTWARE-NOTICE.md", "CONTENT-LICENSE.md", "THIRD-PARTY-NOTICES.md", "CONTRIBUTING.md"):
     origin = source / name
     target = output / name
     if origin.is_dir():
@@ -26,7 +26,7 @@ for name in ("index.html", "app", "lab", "about", "assets", "robots.txt", "sitem
 for path in output.rglob("*"):
     if path.is_symlink():
         raise ValueError(f"Unexpected symlink: {path}")
-    if path.is_file() and path.suffix in (".html", ".xml", ".txt", ".json", ".svg", ".css", ".js"):
+    if path.is_file() and "source" not in path.relative_to(output).parts and path.suffix in (".html", ".xml", ".txt", ".json", ".svg", ".css", ".js"):
         content = path.read_text()
         rewritten = content.replace("https://inertance.org", "https://hydraulicanalogy.com")
         if rewritten != content:
